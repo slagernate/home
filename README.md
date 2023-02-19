@@ -18,7 +18,7 @@ download vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
-download telescope dependencies:
+download telescope (fast text search) dependencies:
 
 ```
 sudo apt-get install ripgrep
@@ -39,5 +39,4 @@ test it out
 ```
 n ~/.vimrc
 ```
-
 

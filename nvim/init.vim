@@ -14,7 +14,7 @@ source ~/.vimrc
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
+"nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Plugins will be downloaded under the specified directory.
@@ -31,13 +31,14 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'olimorris/onedarkpro.nvim'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'olimorris/onedarkpro.nvim'
 Plug 'will133/vim-dirdiff'
 Plug 'github/copilot.vim'
 
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -50,6 +51,9 @@ nnoremap J 7<c-e>
 nnoremap zz ZZ
 nnoremap ZZ zz
 
+" Set working directory to current terminal directory
+tnoremap <A-z> pwd\|xclip<CR><C-\><C-n>:cd <C-r>+<CR>i
+
 colorscheme onedarkpro
 
 " ESC key giving me arthritis
@@ -60,3 +64,14 @@ inoremap kk <Esc>
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+
+lua require('init')
+
+"" Open file browser in the current directory
+"nnoremap <leader>fb :Telescope file_browser<CR>
+"
+"" Open file browser in the directory of the current buffer and select the buffer
+"nnoremap <leader>fb :Telescope file_browser cwd=%:p:h hidden=true search='**/*'<CR>
+"
+
