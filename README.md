@@ -1,20 +1,31 @@
-# vim, neovim and bash settings for Ubuntu (20.04, focal)
-# neovim install
+# vim, neovim and bash settings for Ubuntu (tested on 20.04/focal and 22.04/jammy)
+
+# vim and bash setup
 ```
-sudo snap install --beta nvim --classic
+cd home
+cp .vimrc .bashrc ../
+```
+
+### install [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) 
+# snap
+```
+sudo snap install --beta nvim --classic 
+```
+# apt-get
+```
+sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt update
+sudo apt upgrade
+sudo apt-get install neovim
+```
+
+```
 cp -r nvim ~/.config/nvim
-sudo apt-get install autojump
 ```
 
-for debian based systems (ubuntu):
+install [vim-plug](https://github.com/junegunn/vim-plug):
 ```
-echo "source /usr/share/autojump/autojump.sh" >> ~/.bashrc 
-source ~/.bashrc
-```
-
-download vim-plug
-
-```
+sudo apt-get install curl
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
@@ -40,3 +51,10 @@ test it out
 n ~/.vimrc
 ```
 
+### autojump 
+for debian based systems (ubuntu):
+```
+sudo apt-get install autojump
+echo "source /usr/share/autojump/autojump.sh" >> ~/.bashrc 
+source ~/.bashrc
+```

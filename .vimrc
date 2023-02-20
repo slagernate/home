@@ -74,6 +74,7 @@ augroup commenting_blocks_of_code
     autocmd FileType tex let b:comment_leader = '%'
     autocmd FileType mail let b:comment_leader = '>'
     autocmd FileType vim let b:comment_leader = '"'
+    autocmd FileType lua let b:comment_leader = '--'
 augroup END
 
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\([[:blank:]]*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>

@@ -34,7 +34,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'olimorris/onedarkpro.nvim'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 Plug 'will133/vim-dirdiff'
 Plug 'github/copilot.vim'
 
@@ -53,8 +53,6 @@ nnoremap ZZ zz
 
 " Set working directory to current terminal directory
 tnoremap <A-z> pwd\|xclip<CR><C-\><C-n>:cd <C-r>+<CR>i
-
-colorscheme onedarkpro
 
 " ESC key giving me arthritis
 inoremap jf <Esc>
