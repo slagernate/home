@@ -4,6 +4,7 @@ source ~/.vimrc
 
 " shortcut for leaving terminal mode
 :tnoremap kk <C-\><C-N>
+:tnoremap jf <C-\><C-N>
 
 " Window navigation in terminal mode
 :tnoremap <A-h> <C-\><C-N><C-w>h
@@ -26,7 +27,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -37,8 +38,9 @@ Plug 'hrsh7th/nvim-cmp'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'will133/vim-dirdiff'
 Plug 'github/copilot.vim'
-
+Plug 'junegunn/vim-easy-align'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'kassio/neoterm'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -48,15 +50,19 @@ nnoremap <A-d> <c-d>
 nnoremap K 7<c-y>
 nnoremap J 7<c-e>
 
-nnoremap zz ZZ
+command! Noh noh
+command! NOh noh
+
+nnoremap zz :w<CR>
 nnoremap ZZ zz
 
 " Set working directory to current terminal directory
 tnoremap <A-z> pwd\|xclip<CR><C-\><C-n>:cd <C-r>+<CR>i
 
 " ESC key giving me arthritis
-inoremap jf <Esc>
-inoremap kk <Esc>
+inoremap jk <Esc>:w<CR>
+inoremap jf <Esc>:w<CR>
+inoremap kk <Esc>:w<CR>
 
 " Enable blinking together with different cursor shapes for insert/command mode, and cursor highlighting
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
@@ -73,3 +79,37 @@ lua require('init')
 "nnoremap <leader>fb :Telescope file_browser cwd=%:p:h hidden=true search='**/*'<CR>
 "
 
+let g:copilot#executable_path = "<path to the Copilot binary>"
+let g:copilot#key_mappings = {
+    \ '<C-c><C-c>': 'run',
+    \ '<C-c><C-f>': 'fill',
+    \ '<C-c><C-o>': 'output',
+    \ '<C-c><C-s>': 'select',
+    \ '<C-c><C-x>': 'cancel',
+    \ '<C-c><C-l>': 'line',
+    \ '<C-c><C-a>': 'complete',
+    \ }
+
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+"" Open terminal (and go into insert (terminal) mode)
+nnoremap <leader>vt :vsplit \| Tnew \| call feedkeys("i")<CR>
+nnoremap <leader>t :Tnew \| call feedkeys("i")<CR>
+
+"" get cwd from terminal output 
+function! GetTerminalCWD()
+    let l:line_num = line("$")
+    while l:line_num >= 1
+        let l:line = getline(l:line_num)
+        let l:match = matchlist(l:line, 'nates@science\(.*\):\(.*\)\$')
+        if len(l:match) > 0
+            return substitute(l:match[2], ' *$', '', '')
+        endif
+        let l:line_num -= 1
+    endwhile
+    return ''
+endfunction
+
+nnoremap <leader>sd :execute "cd" GetTerminalCWD()<CR>
+
+colorscheme onedark

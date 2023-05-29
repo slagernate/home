@@ -16,6 +16,4 @@ vim.api.nvim_set_keymap(
 
 require("telescope").load_extension("file_browser")
 
---vim.cmd("colorscheme onedark")
-
 

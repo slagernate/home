@@ -1,17 +1,24 @@
-# vim, neovim and bash settings for Ubuntu (tested on 20.04/focal and 22.04/jammy)
 
-# vim and bash setup
+# VIM and Bash setup
 ```
 cd home
 cp .vimrc .bashrc ../
 ```
 
-### install [neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim) 
-# snap
+# Neovim Setup
+### manual (recommended)
+```
+git clone https://github.com/neovim/neovim.git
+cd neovim
+git checkout v0.9.0  # or any newer version
+sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+```
+### snap
 ```
 sudo snap install --beta nvim --classic 
 ```
-# apt-get
+### apt-get
 ```
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt update
@@ -46,15 +53,18 @@ Run `:checkhealth telescope` for example to verify everything is OK
 sudo snap install --classic node
 ```
 
-test it out
+run
 ```
 n ~/.vimrc
 ```
 
-### autojump 
+# AUTOJUMP 
 for debian based systems (ubuntu):
 ```
 sudo apt-get install autojump
 echo "source /usr/share/autojump/autojump.sh" >> ~/.bashrc 
 source ~/.bashrc
 ```
+
+#  
+### Disclaimer: vim, neovim and bash settings for Ubuntu (tested on 20.04/focal and 22.04/jammy)

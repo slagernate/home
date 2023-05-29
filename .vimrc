@@ -49,6 +49,8 @@ iabbrev optoeelctrode optoelectrode
 iabbrev optoeletrode optoelectrode 
 iabbrev comand command
 
+inoremap <S-Space> _
+
 " Signature
 :iabbrev ssig Thanks, <cr>Nate
 

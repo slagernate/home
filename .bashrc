@@ -88,7 +88,8 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias cn='ssh -X nates_science@10.20.5.74'
+#alias cn='ssh -X nates_science@10.20.5.74'
+alias cn='ssh -X nates_science@10.20.1.89'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -104,6 +105,16 @@ alias sb='. ~/.bashrc'
 alias eb='n ~/.bashrc'
 alias pyt='python'
 alias pyth='python'
+alias mp='multipass'
+alias rmm='rm ~/.config/monitors.xml~'
+
+alias pyt='python3'
+alias pythom='python3'
+alias pythomo='python3'
+alias pythono='python3'
+alias pyhton='python3'
+alias pyhtono='python3'
+alias pyton='python3'
 
 alias m='make'
 alias vs='vsim -view vsim.wlf -do wave.do'
@@ -136,20 +147,22 @@ fi
 
 
 #PATH=$PATH:~/Downloads/oss-cad-suite/bin
-PATH=$PATH:~/Downloads/riscv64-unknown-elf-toolchain-10.2.0-2020.12.8-x86_64-linux-ubuntu14/bin
-PATH=$PATH:~/Downloads/wishbone
-PATH=$PATH:~/lscc/radiant/3.2/bin/lin64/
-PATH=$PATH:~/lscc/radiant/3.2/programmer/bin/lin64
-PATH=$PATH:~/lscc/radiant/3.2/modeltech/linuxloem/
+#PATH=$PATH:~/Downloads/riscv64-unknown-elf-toolchain-10.2.0-2020.12.8-x86_64-linux-ubuntu14/bin
+#PATH=$PATH:~/Downloads/wishbone
+#PATH=$PATH:~/lscc/radiant/3.2/bin/lin64/
+#PATH=$PATH:~/lscc/radiant/3.2/programmer/bin/lin64
+#PATH=$PATH:~/lscc/radiant/3.2/modeltech/linuxloem/
 . "$HOME/.cargo/env"
 
-export bindir="/home/nates/lscc/radiant/3.2/bin/lin64"
-source $bindir/radiant_env
+#export bindir="/home/nates/lscc/radiant/3.2/bin/lin64"
+#source $bindir/radiant_env
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/pym32/lib
-export PATH=/opt/pym32/lib:$PATH
-export PATH=/opt/pym32/bin:$PATH
-export PATH=/home/nates/.local/lib/python3.8/site-packages:$PATH
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/pym32/lib
+#export PATH=/opt/pym32/lib:$PATH
+#export PATH=/opt/pym32/bin:$PATH
+#export PATH=/home/nates/.local/lib/python3.8/site-packages:$PATH
+export PATH=/home/nates/.local/lib/python3.10/site-packages:$PATH
+#export PATH="$HOME/.local/lib/python3.10/site-packages/amaranth"
 
 
 shopt -s histappend
@@ -166,3 +179,18 @@ export PICO_SDK_PATH=/home/nates/rpi/pico/pico-sdk
 export PICO_EXAMPLES_PATH=/home/nates/rpi/pico/pico-examples
 export PICO_EXTRAS_PATH=/home/nates/rpi/pico/pico-extras
 export PICO_PLAYGROUND_PATH=/home/nates/rpi/pico/pico-playground
+
+export PATH="$PATH:$HOME/oss-cad-suite/bin"
+
+export XAUTHORITY=~/.Xauthority
+
+eval "$(direnv hook bash)"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+export PATH=$PATH:/usr/local/go/bin
+
