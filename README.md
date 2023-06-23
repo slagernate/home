@@ -8,6 +8,8 @@ cp .vimrc .bashrc ../
 # Neovim Setup
 ### manual (recommended)
 ```
+# neovim dependencies
+sudo apt-get install ninja-build gettext cmake unzip curl
 git clone https://github.com/neovim/neovim.git
 cd neovim
 git checkout v0.9.0  # or any newer version
@@ -32,7 +34,6 @@ cp -r nvim ~/.config/nvim
 
 install [vim-plug](https://github.com/junegunn/vim-plug):
 ```
-sudo apt-get install curl
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
@@ -49,8 +50,14 @@ nvim ~/.config/nvim/init.vim
 :PlugInstall
 ```
 Run `:checkhealth telescope` for example to verify everything is OK
+
+Install node
 ```
-sudo snap install --classic node
+# For Ubuntu 20.04 (Focal)
+curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+
+sudo apt-get update
+sudo apt-get install nodejs
 ```
 
 run
