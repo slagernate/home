@@ -60,10 +60,19 @@ sudo apt-get update
 sudo apt-get install nodejs
 ```
 
+Copilot:
+```
+npm install n -g
+unalias n
+n stable
+alias n='nvim'
+```
 run
 ```
 n ~/.vimrc
+:Copilot setup
 ```
+If copilot cannot open browser, go directly to: http://github.com/login/device
 
 # AUTOJUMP 
 for debian based systems (ubuntu):
