@@ -1,3 +1,5 @@
+set shell=bash\ -l
+
 set tabstop=4       " The width of a TAB is set to 4. 
                    " Still it is a \t. It is just that 
                     " Vim will interpret it to be having 
@@ -80,10 +82,15 @@ augroup commenting_blocks_of_code
 augroup END
 
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\([[:blank:]]*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> ,cc        :<C-B>silent <C-E>s/^\([[:blank:]]*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\([[:blank:]]*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
-noremap <silent> ,cu        :<C-B>silent <C-E>s/^\([[:blank:]]*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
+
+
+" Align next line to current cursor position
+nnoremap <leader>a mqj0=80i <esc>`qjdt=
+nnoremap <leader>:: mqj0f:80i <esc>`qjdt:
+nnoremap <leader>)) mqj0f)80i <esc>`qjdt)
+nnoremap <leader>(( mqj0f(80i <esc>`qjdt(
+"nnoremap <leader>PP mqj0fP80i <esc>`qjdt(
 
 " Clear current line
 nnoremap <leader>d ddO<esc>
