@@ -12,7 +12,7 @@ cp .vimrc .bashrc ../
 sudo apt-get install ninja-build gettext cmake unzip curl
 git clone https://github.com/neovim/neovim.git
 cd neovim
-git checkout v0.9.0  # or any newer version
+git checkout v0.9.5  # or any newer version
 sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
 ```
@@ -62,9 +62,10 @@ sudo apt-get install nodejs
 
 Copilot:
 ```
-npm install n -g
+sudo apt install npm
+npm install n -g # sudo possibly required
 unalias n
-n stable
+n stable # sudo possibly required
 alias n='nvim'
 ```
 run
