@@ -26,6 +26,8 @@ sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt update
 sudo apt upgrade
 sudo apt-get install neovim
+pip[3] install pynvim
+sudo apt-get install xsel
 ```
 
 ```
