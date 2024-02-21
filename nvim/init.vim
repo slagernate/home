@@ -18,6 +18,7 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 "nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+
 " Plugins will be downloaded under the specified directory.
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
@@ -26,7 +27,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 "Plug 'davidhalter/jedi-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -70,8 +71,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 
-lua require('init')
-
 "" Open file browser in the current directory
 "nnoremap <leader>fb :Telescope file_browser<CR>
 "
@@ -96,14 +95,16 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 nnoremap <leader>vt :vsplit \| Tnew \| call feedkeys("i")<CR>
 nnoremap <leader>t :Tnew \| call feedkeys("i")<CR>
 
-"" get cwd from terminal output 
+"" get cwd from terminal output
 function! GetTerminalCWD()
     let l:line_num = line("$")
     while l:line_num >= 1
         let l:line = getline(l:line_num)
-        let l:match = matchlist(l:line, 'nates@science\(.*\):\(.*\)\$')
+        " Adjusted regular expression to be more general
+        let l:match = matchlist(l:line, '@.*:\zs.*\ze\$')
         if len(l:match) > 0
-            return substitute(l:match[2], ' *$', '', '')
+            " Remove leading and trailing spaces before returning
+            return substitute(l:match[0], '^\s*\|\s*$', '', 'g')
         endif
         let l:line_num -= 1
     endwhile
@@ -113,3 +114,7 @@ endfunction
 nnoremap <leader>sd :execute "cd" GetTerminalCWD()<CR>
 
 colorscheme onedark
+
+
+
+
