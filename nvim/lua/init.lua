@@ -14,6 +14,10 @@ vim.api.nvim_set_keymap(
   { noremap = true }
 )
 
-require("telescope").load_extension("file_browser")
+vim.api.nvim_set_keymap('n', '<leader>lg', '<cmd>lua require(\'telescope.builtin\').live_grep({ additional_args = function(opts) return {"--no-ignore"} end })<CR>', { noremap = true, silent = true })
 
-
+lua require('init')
+lua require'nvim-treesitter.configs'.setup {
+  ensure_installed = {"c", "lua", "vim", "vimdoc", "query"},
+  highlight={enable=true},
+}  

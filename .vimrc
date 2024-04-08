@@ -72,13 +72,13 @@ let mapleader = ","
 "augroup END
 
 augroup commenting_blocks_of_code
-    autocmd FileType systemverilog,verilog,c,cpp,java,scala let b:comment_leader = '//'
-    autocmd FileType sh,ruby,python,tcl let b:comment_leader = '#'
-    autocmd FileType conf,fstab,txt let b:comment_leader = '#'
-    autocmd FileType tex let b:comment_leader = '%'
-    autocmd FileType mail let b:comment_leader = '>'
-    autocmd FileType vim let b:comment_leader = '"'
-    autocmd FileType lua let b:comment_leader = '--'
+    autocmd FileType systemverilog,verilog,c,cpp,java,scala let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python,tcl let b:comment_leader = '# '
+    autocmd FileType conf,fstab,txt,toml let b:comment_leader = '# '
+    autocmd FileType tex let b:comment_leader = '% '
+    autocmd FileType mail let b:comment_leader = '> '
+    autocmd FileType vim let b:comment_leader = '" '
+    autocmd FileType lua let b:comment_leader = '-- '
 augroup END
 
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\([[:blank:]]*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
@@ -90,6 +90,7 @@ nnoremap <leader>a mqj0=80i <esc>`qjdt=
 nnoremap <leader>:: mqj0f:80i <esc>`qjdt:
 nnoremap <leader>)) mqj0f)80i <esc>`qjdt)
 nnoremap <leader>(( mqj0f(80i <esc>`qjdt(
+nnoremap <leader>== mqj0f=80i <esc>`qjdt=
 "nnoremap <leader>PP mqj0fP80i <esc>`qjdt(
 
 " Clear current line
