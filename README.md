@@ -2,7 +2,7 @@
 # VIM and Bash setup
 ```
 cd home
-cp .vimrc .bashrc ../
+cp .vimrc .bashrc ~
 ```
 
 # Neovim Setup
