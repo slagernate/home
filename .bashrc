@@ -152,7 +152,7 @@ fi
 #PATH=$PATH:~/lscc/radiant/3.2/bin/lin64/
 #PATH=$PATH:~/lscc/radiant/3.2/programmer/bin/lin64
 #PATH=$PATH:~/lscc/radiant/3.2/modeltech/linuxloem/
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
 #export bindir="/home/nates/lscc/radiant/3.2/bin/lin64"
 #source $bindir/radiant_env
@@ -184,7 +184,7 @@ export PATH="$PATH:$HOME/oss-cad-suite/bin"
 
 export XAUTHORITY=~/.Xauthority
 
-eval "$(direnv hook bash)"
+#eval "$(direnv hook bash)"
 
 
 export NVM_DIR="$HOME/.nvm"
