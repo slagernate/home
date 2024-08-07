@@ -21,6 +21,12 @@ set expandtab       " Expand TABs to spaces
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
 
+" Map <C-w><A-h> to move the current buffer to the left
+:nnoremap <C-w><A-h> <C-w>H
+:nnoremap <C-w><A-j> <C-w>J
+:nnoremap <C-w><A-k> <C-w>K
+:nnoremap <C-w><A-l> <C-w>L
+
 " Beginning and end of line
 nnoremap H ^
 vnoremap H ^
@@ -71,9 +77,20 @@ let mapleader = ","
 "    autocmd FileType cpp,c,java,scala,python,sh,ruby,tcl <leader>a viW<esc>a,<space><esc>
 "augroup END
 
+augroup default_tab_stop
+    autocmd FileType systemverilog,verilog setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType cpp,c setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType java,scala,python,sh,ruby,tcl,proto setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType conf,fstab,txt,toml setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType tex setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType mail setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType vim setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType lua setlocal ts=4 sts=4 sw=4 expandtab
+augroup END
+
 augroup commenting_blocks_of_code
-    autocmd FileType systemverilog,verilog,c,cpp,java,scala let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python,tcl let b:comment_leader = '# '
+    autocmd FileType systemverilog,verilog,c,cpp,java,scala,rust,proto let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python,tcl,make,cmake let b:comment_leader = '# '
     autocmd FileType conf,fstab,txt,toml let b:comment_leader = '# '
     autocmd FileType tex let b:comment_leader = '% '
     autocmd FileType mail let b:comment_leader = '> '
@@ -137,6 +154,9 @@ set nu
 
 set clipboard=unnamed
 
+" no swap files plz
+set noswapfile
+set shortmess=A
 
 "Rename tabs to show tab# and # of viewports
 set tabpagemax=15
