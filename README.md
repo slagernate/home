@@ -30,6 +30,16 @@ pip[3] install pynvim
 sudo apt-get install xsel
 ```
 
+### binaries (macOS)
+Download relevant binary (e.g. arm binary for apple/arm)
+```
+xattr -c ./nvim-macos-arm64.tar.gz
+tar xzvf nvim-macos-arm64.tar.gz
+sudo mv nvim-macos-arm64/bin/nvim /usr/local/
+sudo mkdir /usr/local/share/
+sudo cp -r share/nvim /usr/local/share
+```
+
 ```
 cp -r nvim ~/.config/nvim
 ```
