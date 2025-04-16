@@ -44,8 +44,17 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kassio/neoterm'
 Plug 'psf/black'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+" Indent guides:
+lua << EOF
+require("ibl").setup({
+    -- Your custom options can go here
+})
+EOF
 
 " Copilot
 " alternate accept key:
@@ -153,6 +162,7 @@ endfunction
 nnoremap <leader>ff :execute 'Telescope find_files cwd=' . GitRoot()<CR>
 nnoremap <leader>fg :execute 'Telescope live_grep cwd=' . GitRoot()<CR>
 nnoremap <leader>fiw :execute 'Telescope grep_string cwd=' . GitRoot()<CR>
+nnoremap <leader>fu :Telescope lsp_document_symbols symbol_type=function<CR>
 
 " map('n', '<leader>ff', "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
 
@@ -179,7 +189,7 @@ nnoremap <leader>co :w<CR><C-w>l<C-\><C-n>:startinsert<CR><Up><CR><C-\><C-n><C-w
 set clipboard=unnamedplus
 
 " day
-" colorscheme catppuccin-latte
+colorscheme catppuccin-latte
 " :highlight Normal guibg=white
 " colorscheme catppuccin-frappe
 " colorscheme catppuccin-macchiato
@@ -188,5 +198,6 @@ set clipboard=unnamedplus
 " colorscheme tokyonight-day
 " colorscheme tokyonight-storm
 " colorscheme tokyonight-moon
-colorscheme tokyonight-night
+" colorscheme tokyonight-night
 " night
+

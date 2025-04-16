@@ -1,15 +1,15 @@
 set shell=bash\ -l
 
-set tabstop=4       " The width of a TAB is set to 4. 
-                   " Still it is a \t. It is just that 
-                    " Vim will interpret it to be having 
-                    " a width of 4. 
- 
-set shiftwidth=4    " Indents will have a width of 4 
- 
-set softtabstop=4   " Sets the number of columns for a TAB 
- 
-set expandtab       " Expand TABs to spaces 
+set tabstop=4       " The width of a TAB is set to 4.
+                   " Still it is a \t. It is just that
+                    " Vim will interpret it to be having
+                    " a width of 4.
+
+set shiftwidth=4    " Indents will have a width of 4
+
+set softtabstop=4   " Sets the number of columns for a TAB
+
+set expandtab       " Expand TABs to spaces
 
 " Window navigation
 :inoremap <A-h> <C-\><C-N><C-w>h
@@ -36,7 +36,7 @@ vnoremap L $
 " General abbreviations
 iabbrev adn and
 iabbrev teh the
-iabbrev ned end 
+iabbrev ned end
 iabbrev waht what
 iabbrev mihgt might
 iabbrev hve have
@@ -46,15 +46,15 @@ iabbrev mohtn month
 iabbrev mothn month
 iabbrev optelectrode optoelectrode
 iabbrev optoelcerde optoelectroe
-iabbrev optoeelctrode optoelectrode 
-iabbrev opteolctrode optoelectrode 
-iabbrev optoelectorde optoelectrode 
-iabbrev optoelectroe optoelectrode 
-iabbrev optoeelctode optoelectrode 
-iabbrev opeoelectrode optoelectrode 
-iabbrev ptoeltorde optoelectrode 
-iabbrev optoeelctrode optoelectrode 
-iabbrev optoeletrode optoelectrode 
+iabbrev optoeelctrode optoelectrode
+iabbrev opteolctrode optoelectrode
+iabbrev optoelectorde optoelectrode
+iabbrev optoelectroe optoelectrode
+iabbrev optoeelctode optoelectrode
+iabbrev opeoelectrode optoelectrode
+iabbrev ptoeltorde optoelectrode
+iabbrev optoeelctrode optoelectrode
+iabbrev optoeletrode optoelectrode
 iabbrev comand command
 
 inoremap <S-Space> _
@@ -127,9 +127,9 @@ nnoremap <leader>} viw<esc>a}<esc>bi{<esc>lel
 
 " Add quotes around visual selection
 
-"nnoremap: <space> i<space><esc> 
+"nnoremap: <space> i<space><esc>
 "nnoremap <space> <c-d>
-"nnoremap: : 
+"nnoremap: :
 
 "nnoremap <expr> <silent> <c-a> expand('<cWord>') =~# '\d+\.\d+
 "
@@ -144,11 +144,11 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-syntax on 
+syntax on
 
-set autoindent 
-set smartindent 
-set smarttab 
+set autoindent
+set smartindent
+set smarttab
 set rnu
 set nu
 
