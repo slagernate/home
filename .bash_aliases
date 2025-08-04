@@ -55,3 +55,6 @@ alias sdklu='/usr/bin/turbox-sdkmanager-setup.sh --os-version 20.04'
 alias sram='ecpprog -k 4 -S'
 alias flash='ecpprog -k 4'
 alias now='touch now && ls -la now && rm now'
+
+# quickly list files and their contents in pwd:
+alias cata='find . -type f -exec sh -c "echo \"\n### File: {} ###\n\"; cat \"{}\"; echo \"\n\"" \;'
