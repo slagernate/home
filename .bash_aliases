@@ -29,7 +29,12 @@ alias pyhton='python3'
 alias pyhtono='python3'
 alias pyton='python3'
 
+# batcat (pretty cat):
+alias bc='batcat --pager="less -RFX"'
+
 # git aliases
+alias gau='git add -u'
+alias gcm='git commit -m'
 alias gs='git status'
 alias gb='git branch'
 alias gba='git branch -a'
@@ -37,6 +42,18 @@ alias gl='git log -7'
 alias gla='git log --oneline --decorate --graph --all'
 alias gc='git checkout'
 alias gd='git diff'
+alias gss='git stash show -p stash@{0}'
+
+# function to execute git stash show -p stash@{n}:
+function gssn() {
+    if [ -z "$1" ]; then
+        echo "Usage: gssn <stash_number>"
+        return 1
+    fi
+    git stash show -p "stash@{$1}"
+}
+# example usage:
+# gssn 1
 
 alias m='make'
 alias mb='make build'
