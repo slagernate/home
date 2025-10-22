@@ -1,4 +1,6 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
+" --- Fix runtime path so ~/.config/nvim/lua/ loads correctly ---
+set runtimepath^=~/.config/nvim runtimepath+=~/.config/nvim/after
+set runtimepath+=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
@@ -18,15 +20,20 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 
 set scrollback=100000
 
+" Detect nvm-managed Node dynamically and tell Copilot to use it
+if filereadable(expand("$HOME/.nvm/nvm.sh"))
+  let $NVM_DIR = expand("$HOME/.nvm")
+  let g:copilot_node_command = trim(system('bash -lc "nvm which current"'))
+endif
+
 " Plugins will be downloaded under the specified directory.
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 " Declare the list of plugins.
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-telescope/telescope.nvim',
+Plug 'nvim-telescope/telescope.nvim'
 " Plug 'davidhalter/jedi-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -44,7 +51,6 @@ Plug 'github/copilot.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kassio/neoterm'
-Plug 'psf/black'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'sindrets/diffview.nvim'
@@ -60,8 +66,13 @@ Plug 'rcarriga/nvim-dap-ui'
 " Virtual text for debugging
 Plug 'theHamsta/nvim-dap-virtual-text'
 
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+lua pcall(require, 'init')
 
 " Copilot
 " alternate accept key:
@@ -72,8 +83,8 @@ let g:copilot_no_tab_map = v:true
 nnoremap <c-J> J
 nnoremap <A-u> <c-u>
 nnoremap <A-d> <c-d>
-nnoremap K 7<c-y>
-nnoremap J 7<c-e>
+nnoremap <leader>K 14<c-y>
+nnoremap J 14<c-e>
 
 command! Noh noh
 command! NOh noh
@@ -140,14 +151,14 @@ nnoremap <leader>b ggVGgq<C-o><C-o>
 set formatoptions-=cro
 
 " don't copy overwritten text to unnamed register when pasting
-xnoremap p P
+" xnoremap p P
 
 " shortcut for swapping current Word and the next word occuring after the next
 " comma
 nnoremap <leader>sw ma:s/\v(\w+),\s*(\w+)/\2, \1/<CR>:nohlsearch<Bar>:echo<CR>`a
 
 " Map a in visual mode to a in normal mode
-xnoremap a <esc>a
+" xnoremap a <esc>a
 
 
 " Telescope
@@ -167,9 +178,6 @@ endfunction
 nnoremap <leader>ff :execute  'Telescope find_files cwd=' . GitRoot()<CR>
 nnoremap <leader>fg :execute  'Telescope live_grep cwd=' . GitRoot()<CR>
 nnoremap <leader>fiw :execute 'Telescope grep_string cwd=' . GitRoot()<CR>
-nnoremap <leader>fu :execute  'Telescope lsp_document_symbols symbols=function'<CR>
-
-" map('n', '<leader>ff', "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>", default_opts)
 
 " start file browser in cwd always
 nnoremap <leader>fd :Telescope file_browser<CR>
@@ -193,115 +201,9 @@ nnoremap <leader>co :w<CR><C-w>l<C-\><C-n>:startinsert<CR><Up><CR><C-\><C-n><C-w
 " by default, use unamed register as clipboard
 set clipboard=unnamedplus
 
-lua << EOF
-require("ibl").setup {}
-EOF
-
-
-lua << EOF
-local dap = require('dap')
-
--- GDB Adapter for Remote Debugging
-dap.adapters.gdb = {
-    type = 'server',
-    host = '10.40.62.166', -- Path to GDB
-    port = '1234',
-}
-
--- Remote Debugging Configuration
-dap.configurations.cpp = {
-    {
-        name = "Attach to Remote GDB",
-        type = "gdb",
-        request = "launch",
-        program = "/home/scifi/build-aarch64/bin/nixelfin4k/scifi-server_test", -- Remote binary
-        cwd = "/home/scifi/build-aarch64/bin/nixelfin4k/", -- Remote working directory
-        stopAtEntry = false,
-        runInTerminal = true, -- Ensures the program runs in a terminal and forwards output
-        args = {}, -- Command-line arguments
-        setupCommands = {
-            {
-                description = "Enable pretty-printing",
-                text = "-enable-pretty-printing",
-                ignoreFailures = true,
-            },
-        },
-        pipeTransport = {
-            pipeCwd = "",
-            pipeProgram = "ssh", -- Use SSH for remote debugging
-            pipeArgs = { "nates@scifi" }, -- SSH user and host
-            debuggerPath = "/usr/bin/gdb", -- Path to GDB on the remote machine
-        },
-        sourceFileMap = {
-            ["/home/scifi/src"] = "/home/nates/github/headstage/src", -- Map remote source to local source
-        },
-    },
-}
-
-require('dap').set_log_level('TRACE')
-
-require('dapui').setup({
-    icons = { expanded = "▾", collapsed = "▸" },
-    mappings = {
-        -- Use default mappings or customize as needed
-        expand = { "<CR>", "<2-LeftMouse>" },
-        open = "o",
-        remove = "d",
-        edit = "e",
-    },
-    layouts = {
-        {
-            elements = {
-                { id = "scopes", size = 0.25 },
-                { id = "breakpoints", size = 0.25 },
-                { id = "stacks", size = 0.25 },
-                { id = "watches", size = 0.25 },
-            },
-            size = 40, -- Width of the window
-            position = "left", -- Can be "left" or "right"
-        },
-        {
-            elements = {
-                { id = "repl", size = 0.5 },
-                { id = "console", size = 0.5 },
-            },
-            size = 10, -- Height of the window
-            position = "bottom", -- Can be "top" or "bottom"
-        },
-    },
-    floating = {
-        max_height = 0.9,
-        max_width = 0.5,
-        border = "single",
-    },
-    windows = { indent = 1 },
-})
-
-require('nvim-dap-virtual-text').setup()
-
-local dap, dapui = require('dap'), require('dapui')
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
-EOF
-
-" lua << EOF
-" require('lspconfig').clangd.setup{
-  " cmd = {"clangd", "--log=verbose"},
-  " filetypes = {"c", "cpp", "objc", "objcpp"},
-" }
-" EOF
-
 " day
 " colorscheme catppuccin-latte
-" " :highlight Normal guibg=white
+" :highlight Normal guibg=white
 " colorscheme catppuccin-frappe
 " colorscheme catppuccin-macchiato
 " colorscheme catppuccin-mocha

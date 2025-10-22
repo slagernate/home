@@ -5,6 +5,11 @@ cd home
 cp .vimrc .bashrc ~
 ```
 
+# Dependencies:
+```
+sudo apt install clangd python3-pylsp -y
+```
+
 # Neovim Setup
 ### manual (recommended)
 ```
