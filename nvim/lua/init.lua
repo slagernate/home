@@ -108,9 +108,24 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('mason').setup()
 require('mason-lspconfig').setup({ ensure_installed = { 'clangd', 'basedpyright', 'ruff' } })
 
-local lspconfig = require('lspconfig')
-lspconfig.clangd.setup({ single_file_support = true }) -- let clangd auto-find compile_commands/flags
-lspconfig.basedpyright.setup({})
+-- If you use mason-lspconfig, override its auto-setup for clangd (fixes the TWO clients):
+local lspconfig = require("lspconfig")
+require("mason-lspconfig").setup_handlers({
+  function(server) lspconfig[server].setup({}) end,
+  ["clangd"] = function()
+    lspconfig.clangd.setup({
+      cmd = { "clangd", "--fallback-style=none" },
+      on_attach = function(client, _)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+        client.server_capabilities.documentOnTypeFormattingProvider = false
+      end,
+    })
+  end,
+})
+
+lspconfig.basedpyright.setup({basedpyright = {analysis = {typeCheckingMode = "off"}}})
+
 lspconfig.ruff.setup({})
 
 local actions = require('telescope.actions')
