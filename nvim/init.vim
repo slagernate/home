@@ -74,6 +74,9 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 
+" Mass file renaming / editing via vim:
+Plug 'elihunter173/dirbuf.nvim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
