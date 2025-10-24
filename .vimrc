@@ -114,7 +114,11 @@ nnoremap <leader>== mqj0f=80i <esc>`qjdt=
 nnoremap <leader>d ddO<esc>
 
 " Easy editing of vimrc
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
+" Open both init.vim and lua/init.lua:
+nnoremap <silent> <leader>ev :vsplit $MYVIMRC \| wincmd l \| execute 'edit ' . (filereadable(stdpath('config').'/init.lua') ? stdpath('config').'/init.lua' : stdpath('config').'/lua/init.lua')<CR>
+" Copy vimrc (and init.vim and init.lua) to yank register:
+nnoremap <silent> <leader>ey :let bnr=bufnr('%') \| enew! \| 0r ~/.vimrc \| $r $MYVIMRC \| execute '$r ' . (filereadable(stdpath('config').'/init.lua') ? stdpath('config').'/init.lua' : stdpath('config').'/lua/init.lua') \| %y \| bd! \| execute 'buffer ' . bnr<CR>
+" Save when done:
 nnoremap <silent> <leader>sv :source $MYVIMRC<cr>
 
 " Add quotes around current word
