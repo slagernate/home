@@ -4,6 +4,9 @@ set runtimepath+=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 " shortcut for leaving terminal mode
 :tnoremap kk <C-\><C-N>
 :tnoremap jf <C-\><C-N>
@@ -46,14 +49,12 @@ Plug 'rebelot/kanagawa.nvim'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'will133/vim-dirdiff'
 Plug 'github/copilot.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'kassio/neoterm'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'sindrets/diffview.nvim'
 
 " nvim-dap
 Plug 'mfussenegger/nvim-dap'
@@ -68,6 +69,10 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+
+" File browsing / tree:
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

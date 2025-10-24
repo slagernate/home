@@ -105,28 +105,38 @@ cmp.setup.cmdline('/', { mapping = cmp.mapping.preset.cmdline(), sources = { { n
 cmp.setup.cmdline(':', { mapping = cmp.mapping.preset.cmdline(), sources = cmp.config.sources({ { name = 'path' }, { name = 'cmdline' } }) })
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+
 require('mason').setup()
 require('mason-lspconfig').setup({ ensure_installed = { 'clangd', 'basedpyright', 'ruff' } })
 
--- If you use mason-lspconfig, override its auto-setup for clangd (fixes the TWO clients):
-local lspconfig = require("lspconfig")
-require("mason-lspconfig").setup_handlers({
-  function(server) lspconfig[server].setup({}) end,
-  ["clangd"] = function()
-    lspconfig.clangd.setup({
-      cmd = { "clangd", "--fallback-style=none" },
-      on_attach = function(client, _)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-        client.server_capabilities.documentOnTypeFormattingProvider = false
-      end,
-    })
-  end,
-})
+local function start_lsp(name, cfg)
+  cfg = vim.tbl_extend("force", { name = name }, cfg or {})
+  pcall(function() vim.lsp.start(cfg) end)
+end
 
-lspconfig.basedpyright.setup({basedpyright = {analysis = {typeCheckingMode = "off"}}})
+if vim.fn.executable("clangd") == 1 then
+  start_lsp("clangd", {
+    cmd = { "clangd", "--fallback-style=none" },
+    root_dir = vim.fs.root(0, { ".git", "compile_commands.json" }) or vim.loop.cwd(),
+    on_attach = function(client, _)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+      client.server_capabilities.documentOnTypeFormattingProvider = false
+    end,
+  })
+end
 
-lspconfig.ruff.setup({})
+if vim.fn.executable("basedpyright-langserver") == 1 then
+  start_lsp("basedpyright", {
+    cmd = { "basedpyright-langserver", "--stdio" },
+    root_dir = vim.fs.root(0, { ".git", "pyproject.toml", "setup.cfg", "setup.py" }) or vim.loop.cwd(),
+    settings = { basedpyright = { analysis = { typeCheckingMode = "off" } } },
+  })
+end
+
+if vim.fn.executable("ruff-lsp") == 1 then
+  start_lsp("ruff", { cmd = { "ruff-lsp" } })
+end
 
 local actions = require('telescope.actions')
 require('telescope').setup{
@@ -148,6 +158,10 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+require("nvim-tree").setup {}
+local api = require("nvim-tree.api")
+vim.keymap.set("n", "<leader>z", api.tree.toggle, { silent = true, desc = "Toggle nvim-tree" })
 
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -189,8 +203,6 @@ vim.keymap.set('n', 'gr', tb.lsp_references, { silent = true, noremap = true, de
 vim.keymap.set('n', '<leader>gs', tb.lsp_document_symbols, { silent = true, noremap = true, desc = 'Doc symbols' })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { silent = true, noremap = true, desc = 'Hover doc' })
 vim.keymap.set('n', '<leader>h', vim.lsp.buf.format, { silent = true, noremap = true, desc = 'Format buffer' })
-
-require('diffview').setup()
 
 -- Setup for <leader>fu (pull up all functions current buffer)
 local ts_funcs = function()
@@ -303,3 +315,7 @@ local function defs_or_grep_cword()
   })
 end
 vim.keymap.set('n', '<leader>fiD', defs_or_grep_cword, { desc = 'LSP defs → grep <cword>' })
+
+
+
+print("\27[32m✔ init.lua loaded successfully!\27[0m")
