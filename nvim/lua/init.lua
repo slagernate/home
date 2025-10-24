@@ -160,8 +160,9 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require("nvim-tree").setup {}
-local api = require("nvim-tree.api")
-vim.keymap.set("n", "<leader>z", api.tree.toggle, { silent = true, desc = "Toggle nvim-tree" })
+vim.keymap.set("n", "<leader>ft", function()
+  require("nvim-tree.api").tree.toggle()
+end, { desc = "Toggle nvim-tree", silent = true })
 
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -317,5 +318,4 @@ end
 vim.keymap.set('n', '<leader>fiD', defs_or_grep_cword, { desc = 'LSP defs → grep <cword>' })
 
 
-
-print("\27[32m✔ init.lua loaded successfully!\27[0m")
+print("✔ init.lua loaded successfully!")
