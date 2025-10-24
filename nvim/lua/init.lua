@@ -215,16 +215,24 @@ local ts_funcs = function()
     return
   end
 
-  -- only capture definitions or declarations with a parameter list "()"
-  local query = vim.treesitter.query.parse(
-    lang,
-    [[
-      (function_definition) @def
-      (declaration
-        declarator: (function_declarator parameters: (parameter_list) @params)
-      ) @decl
-    ]]
-  )
+  -- capture defs (and forward decls); cpp uses `function_declaration`, not `declaration`
+  local qsrc_c = [[
+    (function_definition) @def
+    (declaration
+      declarator: (function_declarator parameters: (parameter_list))
+    ) @decl
+  ]]
+  local qsrc_cpp = [[
+    (function_definition) @def
+    (function_declaration
+      declarator: (function_declarator parameters: (parameter_list))
+    ) @decl
+  ]]
+  local okq, query = pcall(vim.treesitter.query.parse, lang, (lang == 'cpp') and qsrc_cpp or qsrc_c)
+  if not okq then
+    -- fallback: defs only
+    query = vim.treesitter.query.parse(lang, [[ (function_definition) @def ]])
+  end
 
   local parser = vim.treesitter.get_parser(0, lang)
   local tree = parser:parse()[1]:root()
