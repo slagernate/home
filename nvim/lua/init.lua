@@ -326,4 +326,6 @@ end
 vim.keymap.set('n', '<leader>fiD', defs_or_grep_cword, { desc = 'LSP defs → grep <cword>' })
 
 
+vim.diagnostic.disable()
+
 print("✔ init.lua loaded successfully!")
