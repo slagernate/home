@@ -165,10 +165,10 @@ vim.keymap.set("n", "<leader>ft", function()
 end, { desc = "Toggle nvim-tree", silent = true })
 
 -- Remove trailing whitespace on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  command = "%s/\\s\\+$//e",
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+  -- pattern = "*",
+  -- command = "%s/\\s\\+$//e",
+-- })
 
 local tb = require('telescope.builtin')
 local function go_def()
