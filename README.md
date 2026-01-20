@@ -17,7 +17,7 @@ sudo apt install clangd python3-pylsp -y
 sudo apt-get install ninja-build gettext cmake unzip curl
 git clone https://github.com/neovim/neovim.git
 cd neovim
-git checkout v0.9.5  # or any newer version
+git checkout v0.11.0  # list versions with: git tag -l "v*" | sort -V | tail -20
 sudo make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
 ```
@@ -44,16 +44,10 @@ install [vim-plug](https://github.com/junegunn/vim-plug):
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
-install clangd:
-```
-sudo apt-get install clangd
-```
-
 download telescope (fast text search) dependencies:
 
 ```
-sudo apt-get install ripgrep
-sudo apt-get install fd-find
+sudo apt-get install ripgrep fd-find -y
 ```
 
 open a neovim session and run `:PlugInstall` within it
@@ -96,4 +90,4 @@ source ~/.bashrc
 ```
 
 #  
-### Disclaimer: vim, neovim and bash settings for Ubuntu (tested on 20.04/focal and 22.04/jammy)
+### Disclaimer: vim, neovim and bash settings for Ubuntu (tested on 20.04/focal, 22.04/jammy, and 24.04/noble)
