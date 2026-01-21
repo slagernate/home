@@ -132,7 +132,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-. /usr/share/autojump/autojump.sh
 
 
 #PATH=$PATH:~/Downloads/oss-cad-suite/bin
@@ -198,3 +197,10 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="$HOME/bin:$PATH"
 
+# Prefer zoxide for directory jumping, fall back to autojump
+# NOTE: zoxide must be initialized at the end of .bashrc
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+elif [ -f /usr/share/autojump/autojump.sh ]; then
+    . /usr/share/autojump/autojump.sh
+fi

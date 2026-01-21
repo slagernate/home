@@ -72,3 +72,9 @@ alias sdklu='/usr/bin/turbox-sdkmanager-setup.sh --os-version 20.04'
 alias sram='ecpprog -k 4 -S'
 alias flash='ecpprog -k 4'
 alias now='touch now && ls -la now && rm now'
+
+# batcat
+alias bat='batcat'
+
+# zoxide (j for jump)
+alias j='z'
