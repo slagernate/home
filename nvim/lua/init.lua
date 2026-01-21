@@ -328,4 +328,11 @@ vim.keymap.set('n', '<leader>fiD', defs_or_grep_cword, { desc = 'LSP defs → gr
 
 vim.diagnostic.disable()
 
+-- Make terminal buffers modifiable (allows editing terminal output in normal mode)
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.modifiable = true
+  end,
+})
+
 print("✔ init.lua loaded successfully!")
