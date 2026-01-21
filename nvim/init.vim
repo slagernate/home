@@ -43,6 +43,13 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'olimorris/onedarkpro.nvim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'projekt0n/github-nvim-theme'
+Plug 'sainnhe/everforest'
+Plug 'rose-pine/neovim'
+Plug 'sainnhe/gruvbox-material'
+Plug 'savq/melange-nvim'
+Plug 'Yazeed1s/oh-lucy.nvim'
 Plug 'folke/tokyonight.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'rebelot/kanagawa.nvim'
@@ -219,7 +226,27 @@ set clipboard=unnamedplus
 " colorscheme tokyonight-day
 " colorscheme tokyonight-storm
 " colorscheme tokyonight-moon
-colorscheme tokyonight-night
+" colorscheme tokyonight-night
 " night
+
+" colorscheme onedark_dark
+
+" colorscheme nightfox
+colorscheme carbonfox
+" colorscheme nordfox
+" colorscheme duskfox
+" colorscheme terafox
+" colorscheme dayfox
+
+" colorscheme kanagawa-dragon
+
+" colorscheme rose-pine-dawn
+
+" colorscheme github_light
+
+
+" set background=dark
+" colorscheme everforest
+" let g:everforest_background = 'soft'   " soft, medium (default), hard
 
 
